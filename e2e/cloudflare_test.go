@@ -22,6 +22,6 @@ func TestCloudflareProvider(t *testing.T) {
 		ZoneToken: zoneToken, // optional
 	}
 
-	suite := e2e.NewTestSuite(provider, testZone)
-	suite.RunAllTests(t)
+	suite := e2e.NewFullTestSuite(provider, testZone)
+	suite.RunFullTests(t)
 }

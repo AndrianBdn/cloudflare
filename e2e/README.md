@@ -17,7 +17,7 @@ Or copy `.env.example` to `.env` and fill in values.
 3. **Run Tests**
 
 ```bash
-go test -v
+export $(cat .env | xargs) && go test -v
 ```
 
 ## What Gets Tested
