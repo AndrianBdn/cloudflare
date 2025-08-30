@@ -147,10 +147,16 @@ func (r cfDNSRecord) libdnsRecord(zone string) (libdns.Record, error) {
 			Value: r.Data.Value,
 		}, nil
 	case "CNAME":
+		// Cloudflare treats all CNAME targets as FQDNs and adds trailing dots during DNS resolution.
+		// We need to add the trailing dot here to match what actually gets resolved in DNS.
+		target := r.Content
+		if !strings.HasSuffix(target, ".") {
+			target = target + "."
+		}
 		return libdns.CNAME{
 			Name:   name,
 			TTL:    ttl,
-			Target: r.Content,
+			Target: target,
 		}, nil
 	case "MX":
 		return libdns.MX{
@@ -219,12 +225,18 @@ func cloudflareRecord(r libdns.Record) (cfDNSRecord, error) {
 	// And of course there's no real good venue to file a bug report:
 	// https://community.cloudflare.com/t/creating-srv-record-with-content-string-instead-of-individual-component-fields/781178?u=mholt
 	rr := r.RR()
+	content := rr.Data
+	// Cloudflare API expects CNAME targets without trailing dots, but we add them 
+	// in libdnsRecord() for DNS compliance. Strip them here when sending to Cloudflare.
+	if rr.Type == "CNAME" && strings.HasSuffix(content, ".") {
+		content = strings.TrimSuffix(content, ".")
+	}
 	cfRec := cfDNSRecord{
 		// ID:   r.ID,
 		Name:    rr.Name,
 		Type:    rr.Type,
 		TTL:     int(rr.TTL.Seconds()),
-		Content: rr.Data,
+		Content: content,
 	}
 	switch rec := r.(type) {
 	case libdns.SRV:
