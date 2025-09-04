@@ -166,10 +166,14 @@ func (r cfDNSRecord) libdnsRecord(zone string) (libdns.Record, error) {
 			Target:     r.Content,
 		}, nil
 	case "NS":
+		target := r.Content
+		if !strings.HasSuffix(target, ".") {
+			target = target + "."
+		}
 		return libdns.NS{
 			Name:   name,
 			TTL:    ttl,
-			Target: r.Content,
+			Target: target,
 		}, nil
 	case "SRV":
 		parts := strings.SplitN(r.Name, ".", 3)
@@ -226,9 +230,9 @@ func cloudflareRecord(r libdns.Record) (cfDNSRecord, error) {
 	// https://community.cloudflare.com/t/creating-srv-record-with-content-string-instead-of-individual-component-fields/781178?u=mholt
 	rr := r.RR()
 	content := rr.Data
-	// Cloudflare API expects CNAME targets without trailing dots, but we add them 
+	// Cloudflare API expects NS and CNAME targets without trailing dots, but we add them
 	// in libdnsRecord() for DNS compliance. Strip them here when sending to Cloudflare.
-	if rr.Type == "CNAME" && strings.HasSuffix(content, ".") {
+	if (rr.Type == "CNAME" || rr.Type == "NS") && strings.HasSuffix(content, ".") {
 		content = strings.TrimSuffix(content, ".")
 	}
 	cfRec := cfDNSRecord{
