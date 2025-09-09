@@ -9,5 +9,5 @@ require (
 
 replace (
 	github.com/libdns/cloudflare => ../
-	github.com/libdns/libdns => github.com/AndrianBdn/libdns v0.0.0-20250903124819-40d75e3218d5
+	github.com/libdns/libdns => github.com/AndrianBdn/libdns v0.0.0-20250909155650-3b4fa38e5f6d
 )

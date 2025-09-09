@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/libdns/cloudflare"
-	"github.com/libdns/libdns/e2e"
+	"github.com/libdns/libdns/libdnstest"
 )
 
 func TestCloudflareProvider(t *testing.T) {
@@ -22,10 +22,13 @@ func TestCloudflareProvider(t *testing.T) {
 		ZoneToken: zoneToken, // optional
 	}
 
-	suite := e2e.NewTestSuite(provider, testZone)
-	suite.SkipMX = true
-	suite.SkipSVCBHTTPS = true
-	suite.SkipSRV = true
-	suite.SkipCAA = true
+	suite := libdnstest.NewTestSuite(provider, testZone)
+	suite.SkipRRTypes = map[string]bool{
+		"MX":    true,
+		"SVCB":  true,
+		"HTTPS": true,
+		"SRV":   true,
+		"CAA":   true,
+	}
 	suite.RunTests(t)
 }
