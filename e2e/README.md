@@ -1,15 +1,15 @@
-# E2E Tests for Cloudflare Provider
+# Tests for Cloudflare Provider
 
-Tests the Cloudflare libdns provider against real Cloudflare API using the [libdns e2e framework](https://github.com/AndrianBdn/libdns/tree/master/e2e).
+Tests the Cloudflare libdns provider against real Cloudflare API using the official [libdnstest framework](https://github.com/libdns/libdns/tree/master/libdnstest).
 
-## Setup
+## How To Run
 
-1. **Get API Token**: See main README for token setup instructions. Test will use single or dual token depending on env variables.
+1. **Get API Token and setup zone**: See main README for token setup instructions. Test will use single or dual token depending on env variables. Setup some test Cloudflare zone.
 
 2. **Set Environment Variables**:
 ```bash
 export CLOUDFLARE_API_TOKEN="your-token-here"
-export CLOUDFLARE_TEST_ZONE="yourzone.com."  # Include trailing dot
+export CLOUDFLARE_TEST_ZONE="example.org."  # Include trailing dot
 ```
 
 Or copy `.env.example` to `.env` and fill in values.

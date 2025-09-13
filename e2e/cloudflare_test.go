@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/libdns/cloudflare"
@@ -14,7 +15,11 @@ func TestCloudflareProvider(t *testing.T) {
 	testZone := os.Getenv("CLOUDFLARE_TEST_ZONE")
 
 	if apiToken == "" || testZone == "" {
-		t.Skip("Skipping Cloudflare e2e tests: CLOUDFLARE_API_TOKEN and CLOUDFLARE_TEST_ZONE environment variables must be set")
+		t.Skip("Skipping Cloudflare e2e tests: CLOUDFLARE_API_TOKEN and/or CLOUDFLARE_TEST_ZONE environment variables must be set")
+	}
+
+	if !strings.HasSuffix(testZone, ".") {
+		t.Fatal("We expect the test zone to to have trailing dot")
 	}
 
 	provider := &cloudflare.Provider{
@@ -23,12 +28,5 @@ func TestCloudflareProvider(t *testing.T) {
 	}
 
 	suite := libdnstest.NewTestSuite(provider, testZone)
-	suite.SkipRRTypes = map[string]bool{
-		"MX":    true,
-		"SVCB":  true,
-		"HTTPS": true,
-		"SRV":   true,
-		"CAA":   true,
-	}
 	suite.RunTests(t)
 }

@@ -219,7 +219,8 @@ func (p *Provider) ListZones(ctx context.Context) ([]libdns.Zone, error) {
 	zones := make([]libdns.Zone, len(cfZones))
 	for i, cfZone := range cfZones {
 		zones[i] = libdns.Zone{
-			Name: cfZone.Name,
+			// Add trailing dot to make it a FQDN
+			Name: cfZone.Name + ".",
 		}
 	}
 

@@ -1,2 +1,2 @@
-github.com/AndrianBdn/libdns v0.0.0-20250909155650-3b4fa38e5f6d h1:DrikIcC0g1Nz9ZYcR7qt+Ppv2QX7MF27fmEyD1DsLBU=
-github.com/AndrianBdn/libdns v0.0.0-20250909155650-3b4fa38e5f6d/go.mod h1:4Bj9+5CQiNMVGf87wjX4CY3HQJypUHRuLvlsfsZqLWQ=
+github.com/libdns/libdns v1.2.0-alpha.1.0.20250913035451-da352cac42d0 h1:wHCkMJv6YOAZVv7WHvrgkwoHlju6gKlE75KDA19tzMI=
+github.com/libdns/libdns v1.2.0-alpha.1.0.20250913035451-da352cac42d0/go.mod h1:4Bj9+5CQiNMVGf87wjX4CY3HQJypUHRuLvlsfsZqLWQ=
