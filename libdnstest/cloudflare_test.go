@@ -15,7 +15,7 @@ func TestCloudflareProvider(t *testing.T) {
 	testZone := os.Getenv("CLOUDFLARE_TEST_ZONE")
 
 	if apiToken == "" || testZone == "" {
-		t.Skip("Skipping Cloudflare e2e tests: CLOUDFLARE_API_TOKEN and/or CLOUDFLARE_TEST_ZONE environment variables must be set")
+		t.Skip("Skipping Cloudflare provider tests: CLOUDFLARE_API_TOKEN and/or CLOUDFLARE_TEST_ZONE environment variables must be set")
 	}
 
 	if !strings.HasSuffix(testZone, ".") {

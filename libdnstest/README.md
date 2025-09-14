@@ -1,6 +1,6 @@
-# Tests for Cloudflare Provider
+# Provider-Specific Tests for Cloudflare
 
-Tests the Cloudflare libdns provider against real Cloudflare API using the official [libdnstest framework](https://github.com/libdns/libdns/tree/master/libdnstest).
+This directory contains provider-specific tests for the Cloudflare libdns provider using the official [libdnstest package](https://github.com/libdns/libdns/tree/master/libdnstest). These tests verify the provider implementation against the real Cloudflare API, ensuring all libdns interface methods work correctly with actual DNS operations.
 
 ## How To Run
 
@@ -17,7 +17,7 @@ Or copy `.env.example` to `.env` and fill in values.
 3. **Run Tests**
 
 ```bash
-export $(cat .env | xargs) && go test -v
+set -a && source .env && set +a && go test -v
 ```
 
 ## What Gets Tested

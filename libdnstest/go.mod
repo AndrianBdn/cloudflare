@@ -1,4 +1,4 @@
-module github.com/libdns/cloudflare/e2e
+module github.com/libdns/cloudflare/libdnstest
 
 go 1.18
 
